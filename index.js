@@ -62,9 +62,7 @@ function loadPlanet(url, done) {
 /**************************************\
 \**************************************/
 
-
-function renderPeople(data) {
-  mainElement.textContent = '';
+function createPagerNav(data, renderList) {
   var navElement = document.createElement('nav');
 
   if (data.previous) {
@@ -72,7 +70,7 @@ function renderPeople(data) {
     previousButton.classList.add('previous');
     previousButton.textContent = 'previous';
     previousButton.addEventListener('click', function() {
-      loadData(data.previous, renderPeople);
+      loadData(data.previous, renderList);
     });
     navElement.appendChild(previousButton);
   }
@@ -82,10 +80,21 @@ function renderPeople(data) {
     nextButton.classList.add('next');
     nextButton.textContent = 'next';
     nextButton.addEventListener('click', function() {
-      loadData(data.next, renderPeople);
+      loadData(data.next, renderList);
     });
     navElement.appendChild(nextButton);
   }
+
+  return navElement;
+}
+
+/**************************************\
+\**************************************/
+
+
+function renderPeople(data) {
+  mainElement.textContent = '';
+  var navElement = createPagerNav(data, renderPeople);
 
   var cardsElement = document.createElement('div');
   cardsElement.classList.add('cards');
@@ -164,27 +173,7 @@ renderers.people = renderPeople;
 
 function renderSpecies(data) {
   mainElement.textContent = '';
-  var navElement = document.createElement('nav');
-
-  if (data.previous) {
-    var previousButton = document.createElement('button');
-    previousButton.classList.add('previous');
-    previousButton.textContent = 'previous';
-    previousButton.addEventListener('click', function() {
-      loadData(data.previous, renderSpecies);
-    });
-    navElement.appendChild(previousButton);
-  }
-
-  if (data.next) {
-    var nextButton = document.createElement('button');
-    nextButton.classList.add('next');
-    nextButton.textContent = 'next';
-    nextButton.addEventListener('click', function() {
-      loadData(data.next, renderSpecies);
-    });
-    navElement.appendChild(nextButton);
-  }
+  var navElement = createPagerNav(data, renderSpecies);
 
   var cardsElement = document.createElement('div');
   cardsElement.classList.add('cards');
@@ -262,27 +251,7 @@ renderers.species = renderSpecies;
 
 function renderStarships(data) {
   mainElement.textContent = '';
-  var navElement = document.createElement('nav');
-
-  if (data.previous) {
-    var previousButton = document.createElement('button');
-    previousButton.classList.add('previous');
-    previousButton.textContent = 'previous';
-    previousButton.addEventListener('click', function() {
-      loadData(data.previous, renderStarships);
-    });
-    navElement.appendChild(previousButton);
-  }
-
-  if (data.next) {
-    var nextButton = document.createElement('button');
-    nextButton.classList.add('next');
-    nextButton.textContent = 'next';
-    nextButton.addEventListener('click', function() {
-      loadData(data.next, renderStarships);
-    });
-    navElement.appendChild(nextButton);
-  }
+  var navElement = createPagerNav(data, renderStarships);
 
   var cardsElement = document.createElement('div');
   cardsElement.classList.add('cards');
@@ -361,27 +330,7 @@ function renderStarships(data) {
 
 function renderVehicles(data) {
   mainElement.textContent = '';
-  var navElement = document.createElement('nav');
-
-  if (data.previous) {
-    var previousButton = document.createElement('button');
-    previousButton.classList.add('previous');
-    previousButton.textContent = 'previous';
-    previousButton.addEventListener('click', function() {
-      loadData(data.previous, renderVehicles);
-    });
-    navElement.appendChild(previousButton);
-  }
-
-  if (data.next) {
-    var nextButton = document.createElement('button');
-    nextButton.classList.add('next');
-    nextButton.textContent = 'next';
-    nextButton.addEventListener('click', function() {
-      loadData(data.next, renderVehicles);
-    });
-    navElement.appendChild(nextButton);
-  }
+  var navElement = createPagerNav(data, renderVehicles);
 
   var cardsElement = document.createElement('div');
   cardsElement.classList.add('cards');
@@ -450,27 +399,7 @@ renderers.vehicles = renderVehicles;
 
 function renderFilms(data) {
   mainElement.textContent = '';
-  var navElement = document.createElement('nav');
-
-  if (data.previous) {
-    var previousButton = document.createElement('button');
-    previousButton.classList.add('previous');
-    previousButton.textContent = 'previous';
-    previousButton.addEventListener('click', function() {
-      loadData(data.previous, renderFilms);
-    });
-    navElement.appendChild(previousButton);
-  }
-
-  if (data.next) {
-    var nextButton = document.createElement('button');
-    nextButton.classList.add('next');
-    nextButton.textContent = 'next';
-    nextButton.addEventListener('click', function() {
-      loadData(data.next, renderFilms);
-    });
-    navElement.appendChild(nextButton);
-  }
+  var navElement = createPagerNav(data, renderFilms);
 
   var cardsElement = document.createElement('div');
   cardsElement.classList.add('cards');
