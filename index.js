@@ -85,7 +85,20 @@ function createPagerNav(data, renderList) {
     navElement.appendChild(nextButton);
   }
 
-  return navElement;
+  mainElement.appendChild(navElement);
+}
+
+function renderCards(data, renderItem) {
+  var cardsElement = document.createElement('div');
+  cardsElement.classList.add('cards');
+
+  data.results.forEach(function(object) {
+    var sectionElement = document.createElement('section');
+    renderItem(sectionElement, object);
+    cardsElement.appendChild(sectionElement);
+  });
+
+  mainElement.appendChild(cardsElement);
 }
 
 /**************************************\
@@ -94,17 +107,8 @@ function createPagerNav(data, renderList) {
 
 function renderPeople(data) {
   mainElement.textContent = '';
-  var navElement = createPagerNav(data, renderPeople);
-
-  var cardsElement = document.createElement('div');
-  cardsElement.classList.add('cards');
-
-  mainElement.appendChild(cardsElement);
-  mainElement.appendChild(navElement);
-
-  data.results.forEach(function(object) {
-    var sectionElement = document.createElement('section');
-
+  createPagerNav(data, renderPeople);
+  renderCards(data, function(sectionElement, object) {
     var genderSymbol;
     switch (object.gender) {
       case 'male':
@@ -163,8 +167,6 @@ function renderPeople(data) {
       .addEventListener('click', function() {
         loadPlanet(object.homeworld, renderPlanet);
       });
-
-    cardsElement.appendChild(sectionElement);
   });
 }
 renderers.people = renderPeople;
@@ -173,29 +175,8 @@ renderers.people = renderPeople;
 
 function renderSpecies(data) {
   mainElement.textContent = '';
-  var navElement = createPagerNav(data, renderSpecies);
-
-  var cardsElement = document.createElement('div');
-  cardsElement.classList.add('cards');
-
-  mainElement.appendChild(cardsElement);
-  mainElement.appendChild(navElement);
-
-  data.results.forEach(function(object) {
-    var sectionElement = document.createElement('section');
-
-    var genderSymbol;
-    switch (object.gender) {
-      case 'male':
-        genderSymbol = '♂';
-        break;
-      case 'female':
-        genderSymbol = '♀';
-        break;
-      default:
-        genderSymbol = '?';
-    }
-
+  createPagerNav(data, renderSpecies);
+  renderCards(data, function(sectionElement, object) {
     sectionElement.innerHTML = `
     <header>
       <h1>
@@ -251,17 +232,8 @@ renderers.species = renderSpecies;
 
 function renderStarships(data) {
   mainElement.textContent = '';
-  var navElement = createPagerNav(data, renderStarships);
-
-  var cardsElement = document.createElement('div');
-  cardsElement.classList.add('cards');
-
-  mainElement.appendChild(cardsElement);
-  mainElement.appendChild(navElement);
-
-  data.results.forEach(function(object) {
-    var sectionElement = document.createElement('section');
-
+  createPagerNav(data, renderStarships);
+  renderCards(data, function(sectionElement, object) {
     sectionElement.innerHTML = `
     <header>
       <h1>
@@ -325,22 +297,15 @@ function renderStarships(data) {
     cardsElement.appendChild(sectionElement);
   });
 }
+renderers.starships = renderStarships;
+
 
 // -------------------------------------
 
 function renderVehicles(data) {
   mainElement.textContent = '';
-  var navElement = createPagerNav(data, renderVehicles);
-
-  var cardsElement = document.createElement('div');
-  cardsElement.classList.add('cards');
-
-  mainElement.appendChild(cardsElement);
-  mainElement.appendChild(navElement);
-
-  data.results.forEach(function(object) {
-    var sectionElement = document.createElement('section');
-
+  createPagerNav(data, renderVehicles);
+  renderCards(data, function(sectionElement, object) {
     sectionElement.innerHTML = `<header>
       <h1>${object.name}</h1>
     </header>
@@ -399,17 +364,8 @@ renderers.vehicles = renderVehicles;
 
 function renderFilms(data) {
   mainElement.textContent = '';
-  var navElement = createPagerNav(data, renderFilms);
-
-  var cardsElement = document.createElement('div');
-  cardsElement.classList.add('cards');
-
-  mainElement.appendChild(cardsElement);
-  mainElement.appendChild(navElement);
-
-  data.results.forEach(function(object) {
-    var sectionElement = document.createElement('section');
-
+  createPagerNav(data, renderFilms);
+  renderCards(data, function(sectionElement, object) {
     sectionElement.innerHTML = `<header>
       <h1><small>${object.episode_id}</small> ${object.title}</h1>
     </header>
